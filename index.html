@@ -34,7 +34,7 @@
   --shadow-md:0 12px 28px rgba(0,0,0,.84);
   --shadow-lg:0 24px 56px rgba(0,0,0,.94);
   --velvet-weave:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cpath d='M0 0h3v3H0zM3 3h3v3H3z' fill='%23000' fill-opacity='.34'/%3E%3C/svg%3E");
-  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/200/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .2 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 *{box-sizing:border-box}
 body{
@@ -645,760 +645,103 @@ body.shake{animation:screenShake .48s cubic-bezier(.36,.07,.19,.97) both}
 }
 
 /* ==========================================================================
-   UNIQUE SMOOTH AMBIENT ANIMATIONS FOR EVERY MOOD & GENRE BUTTON
+   GENRE + MOOD BUTTONS: no icons, each one has its own material, type and motion
    ========================================================================== */
-#moods .chip, #genres .chip{
-  position:relative;
-  overflow:hidden;
-  isolation:isolate;
-  padding:15px 25px;
-  font-size:1.05rem;
-  min-height:54px;
-  will-change:transform, box-shadow;
-}
-#moods .chip::before, #moods .chip::after,
-#genres .chip::before, #genres .chip::after{
-  pointer-events:none;
-}
-#moods .chip.on, #genres .chip.on{
-  outline:3px solid #ffffff;
-  outline-offset:2px;
-  transform:translateY(-4px) scale(1.04);
-  filter:brightness(1.16) saturate(1.15);
-  z-index:3;
-}
+#moods .chip,#genres .chip{--a:#c9243a;--bg:linear-gradient(180deg,#2a0409,#0b0103);--fc:#fff;--ff:var(--f);--fs:1.05rem;--ls:.02em;--r:13px;--ts:none;--fo:.85;--d:4s;--fd:3s;--fxs:auto;--rp:repeat;--t:40px;
+  position:relative;overflow:hidden;isolation:isolate;min-height:56px;padding:14px 26px;font:700 var(--fs)/1.15 var(--ff);letter-spacing:var(--ls);color:var(--fc);text-shadow:var(--ts);background:linear-gradient(180deg,rgba(255,255,255,.2),rgba(255,255,255,0) 42%,rgba(0,0,0,.18)),var(--bg);border:2px solid var(--a);border-radius:var(--r);
+  box-shadow:0 5px 0 #040001,0 10px 20px rgba(0,0,0,.7),0 0 18px color-mix(in srgb,var(--a) 38%,transparent),inset 0 1px 0 rgba(255,255,255,.14);animation:var(--an,anBreathe) var(--d) ease-in-out infinite}
+#moods .chip::before,#genres .chip::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:var(--fx,none);background-size:var(--fxs);background-repeat:var(--rp);background-position:var(--bp,0 0);opacity:var(--fo);animation:var(--fa,fxPulse) var(--fd) linear infinite}
+#moods .chip::after,#genres .chip::after{content:none}
+#moods .chip.on,#genres .chip.on{outline:3px solid #fff;outline-offset:3px;filter:brightness(1.2) saturate(1.2);animation-duration:calc(var(--d)*.5);z-index:3}
+@keyframes anShake{0%,70%,100%{translate:0 0}74%{translate:-3px 1px}78%{translate:3px -1px}82%{translate:-2px -1px}86%{translate:2px 1px}90%{translate:-1px 0}}
+@keyframes anFloat{50%{translate:0 -4px;rotate:.8deg}}
+@keyframes anBounce{0%,100%{translate:0 0;scale:1 1}30%{translate:0 -7px;scale:.96 1.06}55%{translate:0 0;scale:1.06 .92}75%{scale:1 1}}
+@keyframes anWobble{0%,100%{rotate:0deg}25%{rotate:-2.5deg}75%{rotate:2.5deg}}
+@keyframes anPop{0%,78%,100%{scale:1}88%{scale:1.09}94%{scale:.97}}
+@keyframes anBeat{0%,100%{scale:1}14%{scale:1.07}28%{scale:1}42%{scale:1.05}70%{scale:1}}
+@keyframes anBreathe{50%{scale:1.025}}
+@keyframes anSwing{0%,100%{rotate:-2.5deg}50%{rotate:2.5deg}}
+@keyframes anFlick{0%,100%{opacity:1}6%{opacity:.55}8%{opacity:1}41%{opacity:.8;translate:1px 0}43%{opacity:1;translate:0 0}77%{opacity:.6}79%{opacity:1}}
+@keyframes anGlitch{0%,88%,100%{translate:0 0;skew:0deg;text-shadow:var(--ts)}90%{translate:-3px 0;skew:-6deg;text-shadow:3px 0 #f0f,-3px 0 #0ff}94%{translate:3px 1px;skew:5deg;text-shadow:-3px 0 #f0f,3px 0 #0ff}}
+@keyframes anTense{0%,60%,100%{translate:0 0}64%,72%,80%{translate:-1px 0}68%,76%,84%{translate:1px 0}}
+@keyframes anMarch{50%{translate:3px 0}}
+@keyframes anStep{0%,49%{translate:0 0}50%,100%{translate:0 -3px}}
+@keyframes anSink{50%{translate:0 3px;filter:brightness(.88)}}
+@keyframes anDim{50%{filter:brightness(.7)}}
+@keyframes fxX{to{background-position:var(--t) 0}}
+@keyframes fxY{to{background-position:0 var(--t)}}
+@keyframes fxDiag{to{background-position:var(--t) var(--t)}}
+@keyframes fxSweep{0%{background-position:-90% 0}100%{background-position:190% 0}}
+@keyframes fxGlint{0%{background-position:-90% 0}55%,100%{background-position:190% 0}}
+@keyframes fxPulse{0%,100%{opacity:.9}50%{opacity:.25}}
+@keyframes fxDrip{0%,100%{background-size:100% 18%}50%{background-size:100% 62%}}
+@keyframes fxEq{0%,100%{background-size:100% 25%}20%{background-size:100% 80%}45%{background-size:100% 40%}70%{background-size:100% 95%}85%{background-size:100% 50%}}
+#genres [data-g=Action]{--a:#ff6a00;--bg:linear-gradient(135deg,#4a1500,#140300);--ff:'Black Ops One';--r:3px;--ls:.1em;--ts:0 0 10px #ff6a00;--fx:repeating-linear-gradient(115deg,transparent 0 9px,rgba(255,130,0,.35) 9px 13px);--t:22px;--fa:fxX;--fd:.45s;--an:anShake;--d:2.4s}
+#genres [data-g=Adventure]{--a:#d9a441;--bg:linear-gradient(160deg,#4a3410,#170f03);--ff:Righteous;--r:10px;--fx:linear-gradient(100deg,transparent,rgba(255,215,120,.5),transparent);--fxs:45% 100%;--rp:no-repeat;--fa:fxSweep;--fd:3.2s;--an:anFloat;--d:5s}
+#genres [data-g=Animation]{--a:#f472b6;--bg:linear-gradient(135deg,#7c3aed,#ec4899);--ff:Chewy;--r:999px;--fs:1.15rem;--fx:radial-gradient(circle,rgba(255,255,255,.32) 3px,transparent 4px);--fxs:18px 18px;--t:18px;--fa:fxDiag;--fd:2s;--an:anBounce;--d:1.9s}
+#genres [data-g=Comedy]{--a:#ffd23f;--bg:linear-gradient(135deg,#ff7a00,#ff3d00);--ff:Bangers;--ls:.08em;--fs:1.25rem;--r:18px;--ts:2px 2px 0 #7a1d00;--fx:radial-gradient(circle,rgba(90,20,0,.3) 2px,transparent 3px);--fxs:10px 10px;--t:10px;--fa:fxDiag;--fd:1.4s;--an:anPop;--d:3s}
+#genres [data-g=Crime]{--a:#3b82f6;--bg:linear-gradient(180deg,#0e1524,#04070d);--ff:'Special Elite';--r:6px;--fx:linear-gradient(90deg,rgba(255,30,30,.55),transparent 38%,transparent 62%,rgba(30,110,255,.55));--fxs:100% 100%;--rp:no-repeat;--fa:fxPulse;--fd:1s;--an:anTense;--d:4s}
+#genres [data-g=Documentary]{--a:#b8b09a;--bg:linear-gradient(180deg,#26221a,#12100b);--ff:'Courier Prime';--r:2px;--fx:repeating-linear-gradient(0deg,rgba(255,255,255,.07) 0 1px,transparent 1px 4px);--t:80px;--fa:fxY;--fd:5s;--an:anBreathe;--d:6s}
+#genres [data-g=Drama]{--a:#e11d48;--bg:repeating-linear-gradient(90deg,#5a0719 0 14px,#7a0c27 14px 28px);--ff:'Playfair Display';--fs:1.12rem;--r:8px;--ts:0 2px 6px #000;--fx:radial-gradient(circle at 50% 0,rgba(255,235,190,.55),transparent 60%);--fxs:60% 100%;--rp:no-repeat;--fa:fxSweep;--fd:4.5s;--an:anBreathe;--d:5s}
+#genres [data-g=Family]{--a:#4ade80;--bg:linear-gradient(135deg,#15803d,#0b4d27);--ff:Fredoka;--r:24px;--fx:repeating-linear-gradient(0deg,rgba(255,255,255,.14) 0 8px,transparent 8px 16px),repeating-linear-gradient(90deg,rgba(255,255,255,.14) 0 8px,transparent 8px 16px);--t:16px;--fa:fxDiag;--fd:3s;--an:anFloat;--d:3.6s}
+#genres [data-g=Fantasy]{--a:#a78bfa;--bg:linear-gradient(160deg,#2e1065,#09031c);--ff:MedievalSharp;--fs:1.12rem;--r:14px;--ts:0 0 8px #a78bfa;--fx:radial-gradient(circle,#fff 1px,transparent 2px),radial-gradient(circle,rgba(200,180,255,.9) 1px,transparent 2px);--fxs:31px 29px,47px 43px;--t:-30px;--fa:fxY;--fd:4s;--an:anFloat;--d:4.4s}
+#genres [data-g=History]{--a:#c8a35a;--bg:linear-gradient(180deg,#3b2f18,#17110a);--ff:'Cinzel Decorative';--fs:.98rem;--r:5px;--ts:0 1px 0 #000;--fx:linear-gradient(100deg,transparent,rgba(240,205,130,.4),transparent);--fxs:40% 100%;--rp:no-repeat;--fa:fxGlint;--fd:5s;--an:anBreathe;--d:7s}
+#genres [data-g=Horror]{--a:#b91c1c;--bg:linear-gradient(180deg,#1a0000,#000);--ff:Creepster;--fs:1.35rem;--ls:.08em;--ts:0 0 10px #ef4444;--fx:repeating-linear-gradient(90deg,#9b0000 0 5px,transparent 5px 17px);--fxs:100% 18%;--rp:repeat-x;--bp:bottom;--fa:fxDrip;--fd:3.4s;--an:anFlick;--d:5s}
+#genres [data-g=Music]{--a:#ec4899;--bg:linear-gradient(135deg,#3b0764,#0f0220);--ff:Righteous;--r:999px;--fx:repeating-linear-gradient(90deg,#f0abfc 0 5px,transparent 5px 11px);--fxs:100% 25%;--rp:repeat-x;--bp:bottom;--fa:fxEq;--fd:1s;--fo:.5;--an:anBeat;--d:1.8s}
+#genres [data-g=Mystery]{--a:#64748b;--bg:linear-gradient(180deg,#111a2e,#02050c);--ff:'Share Tech Mono';--r:8px;--fx:radial-gradient(ellipse,rgba(148,163,184,.4),transparent 65%);--fxs:70% 100%;--rp:no-repeat;--fa:fxSweep;--fd:6s;--an:anDim;--d:4.6s}
+#genres [data-g=Romance]{--a:#fb7185;--bg:linear-gradient(135deg,#9f1239,#3b0314);--ff:'Dancing Script';--fs:1.3rem;--r:999px;--ts:0 0 10px #fda4af;--fx:radial-gradient(circle at 50% 50%,rgba(255,170,190,.5),transparent 65%);--fxs:100% 100%;--rp:no-repeat;--fa:fxPulse;--fd:1.8s;--an:anBeat;--d:1.8s}
+#genres [data-g=Sci-Fi]{--a:#38bdf8;--bg:linear-gradient(180deg,#04223a,#010a14);--ff:Orbitron;--fs:.95rem;--ls:.14em;--r:2px;--ts:0 0 9px #38bdf8;--fx:linear-gradient(90deg,transparent,rgba(110,220,255,.7),transparent),repeating-linear-gradient(0deg,rgba(56,189,248,.12) 0 1px,transparent 1px 4px);--fxs:30% 100%,auto;--rp:no-repeat,repeat;--fa:fxSweep;--fd:2s;--an:anBreathe;--d:5s}
+#genres [data-g=Thriller]{--a:#dc2626;--bg:linear-gradient(180deg,#140808,#000);--ff:'Special Elite';--fs:1.1rem;--r:4px;--fx:linear-gradient(90deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%);--fxs:50% 100%;--rp:no-repeat;--fa:fxSweep;--fd:2.4s;--an:anTense;--d:3.2s}
+#genres [data-g=War]{--a:#8a9a3e;--bg:linear-gradient(180deg,#323818,#12150a);--ff:'Black Ops One';--ls:.1em;--r:2px;--fx:repeating-linear-gradient(45deg,rgba(0,0,0,.4) 0 10px,transparent 10px 20px);--t:28px;--fa:fxDiag;--fd:2.2s;--an:anMarch;--d:2.6s}
+#genres [data-g=Western]{--a:#d08a4a;--bg:linear-gradient(180deg,#7a4a1f,#341a08);--ff:Rye;--fs:1rem;--r:6px;--ts:0 2px 0 #1a0c02;--fx:radial-gradient(circle,rgba(255,220,160,.35) 1px,transparent 2px);--fxs:9px 7px;--t:9px;--fa:fxX;--fd:1.2s;--an:anSwing;--d:4.2s;outline:1px dashed rgba(255,225,170,.4);outline-offset:-6px}
+#moods [data-m="0"]{--a:#f59e0b;--bg:linear-gradient(180deg,#7c3a12,#2e1204);--ff:Fredoka;--r:26px;--fx:radial-gradient(ellipse at 50% 130%,rgba(255,190,80,.6),transparent 65%);--fxs:100% 100%;--rp:no-repeat;--fa:fxPulse;--fd:3.4s;--an:anBreathe;--d:4.4s}
+#moods [data-m="1"]{--a:#fde047;--bg:linear-gradient(135deg,#d946ef,#f97316);--ff:Bangers;--fs:1.3rem;--ls:.08em;--r:6px;--ts:2px 2px 0 #3b0764;--fx:repeating-linear-gradient(100deg,transparent 0 8px,rgba(255,255,255,.35) 8px 11px);--t:19px;--fa:fxX;--fd:.4s;--an:anShake;--d:1.8s}
+#moods [data-m="2"]{--a:#52525b;--bg:linear-gradient(180deg,#18181b,#000);--ff:'Playfair Display';--fs:1.12rem;--r:4px;--fx:radial-gradient(ellipse,transparent 30%,rgba(0,0,0,.85) 100%);--fxs:100% 100%;--rp:no-repeat;--fa:fxPulse;--fd:5s;--fo:1;--an:anDim;--d:5.4s}
+#moods [data-m="3"]{--a:#a855f7;--bg:linear-gradient(120deg,#7c3aed,#06b6d4,#f472b6,#7c3aed);--ff:Fascinate;--fs:1rem;--r:16px;--ts:0 0 6px #000;--fx:repeating-conic-gradient(rgba(255,255,255,.18) 0 10deg,transparent 10deg 20deg);--fxs:60px 60px;--t:60px;--fa:fxX;--fd:2.6s;--an:anGlitch;--d:3.4s}
+#moods [data-m="4"]{--a:#fde047;--bg:linear-gradient(135deg,#fde047,#fb923c);--fc:#2a1100;--ff:Chewy;--fs:1.2rem;--r:30px;--fx:radial-gradient(circle,rgba(255,255,255,.55) 2px,transparent 3px);--fxs:14px 14px;--t:14px;--fa:fxDiag;--fd:1.6s;--an:anWobble;--d:1.6s}
+#moods [data-m="5"]{--a:#f9a8d4;--bg:linear-gradient(180deg,#6b2142,#2a0a1c);--ff:'Playfair Display';--fs:1.1rem;--r:999px;--ts:0 0 8px rgba(255,190,215,.6);--fx:radial-gradient(circle at 50% 50%,rgba(255,200,220,.4),transparent 62%);--fxs:100% 100%;--rp:no-repeat;--fa:fxPulse;--fd:4s;--an:anBreathe;--d:4.6s}
+#moods [data-m="6"]{--a:#e879f9;--bg:linear-gradient(135deg,#5b0e3d,#1e0624);--ff:'Dancing Script';--fs:1.3rem;--r:999px;--fx:radial-gradient(circle,rgba(255,210,150,.9) 1px,transparent 3px),radial-gradient(circle,rgba(255,170,230,.7) 2px,transparent 4px);--fxs:37px 29px,53px 41px;--fa:fxPulse;--fd:2.2s;--an:anFloat;--d:4.8s}
+#moods [data-m="7"]{--a:#84cc16;--bg:linear-gradient(180deg,#0f2305,#020700);--ff:Creepster;--fs:1.35rem;--ls:.08em;--ts:0 0 12px #84cc16;--fx:radial-gradient(ellipse,rgba(220,255,200,.35),transparent 65%);--fxs:70% 100%;--rp:no-repeat;--fa:fxSweep;--fd:5s;--an:anFlick;--d:4.2s}
+#moods [data-m="8"]{--a:#fbbf24;--bg:linear-gradient(180deg,#2a0f4a,#0e0420);--ff:'Press Start 2P';--fs:.68rem;--ls:0;--r:0;--ts:2px 2px 0 #000;--fx:repeating-linear-gradient(0deg,rgba(0,0,0,.35) 0 2px,transparent 2px 4px);--t:40px;--fa:fxY;--fd:3s;--an:anStep;--d:1s;border-width:3px}
+#moods [data-m="9"]{--a:#facc15;--bg:linear-gradient(180deg,#4a3607,#120c01);--ff:'Cinzel Decorative';--fs:1rem;--r:4px;--ts:0 0 10px rgba(250,204,21,.8);--fx:linear-gradient(100deg,transparent,rgba(255,235,150,.55),transparent);--fxs:40% 100%;--rp:no-repeat;--fa:fxSweep;--fd:3s;--an:anBreathe;--d:4s}
+#moods [data-m="10"]{--a:#38bdf8;--bg:linear-gradient(180deg,#0ea5e9,#075985);--ff:Fredoka;--r:28px;--fx:radial-gradient(ellipse,rgba(255,255,255,.5),transparent 70%);--fxs:50% 80%;--rp:no-repeat;--fa:fxSweep;--fd:6s;--an:anFloat;--d:3.4s}
+#moods [data-m="11"]{--a:#60a5fa;--bg:linear-gradient(180deg,#14213d,#050912);--ff:'Playfair Display';--fs:1.1rem;--r:14px;--fx:repeating-linear-gradient(100deg,rgba(147,197,253,.55) 0 1px,transparent 1px 9px);--t:36px;--fa:fxY;--fd:.9s;--an:anSink;--d:4s}
+#moods [data-m="12"]{--a:#2dd4bf;--bg:linear-gradient(180deg,#073b38,#01110f);--ff:Fascinate;--fs:1rem;--r:14px;--ts:0 0 8px #2dd4bf;--fx:linear-gradient(100deg,transparent,rgba(190,255,245,.8),transparent);--fxs:35% 100%;--rp:no-repeat;--fa:fxGlint;--fd:4s;--an:anBreathe;--d:5s}
+#moods [data-m="13"]{--a:#e5e7eb;--bg:linear-gradient(180deg,#ddd6c4,#b9b19b);--fc:#1a1710;--ff:'Courier Prime';--r:2px;--fx:radial-gradient(circle,rgba(0,0,0,.18) 1px,transparent 1.5px);--fxs:5px 5px;--fa:fxPulse;--fd:3s;--fo:.7;--an:anPop;--d:3.4s;outline:1px solid rgba(0,0,0,.35);outline-offset:-5px}
 
-/* 1. HORROR & SPOOKY */
-@keyframes horrorSmoothPulse{
-  0%,100%{
-    box-shadow:0 5px 0 #0d0001, 0 10px 20px rgba(0,0,0,.76), inset 0 1px 0 rgba(255,140,140,.14);
-    text-shadow:0 0 6px rgba(248,113,113,.3);
-  }
-  50%{
-    box-shadow:0 5px 0 #0d0001, 0 12px 24px rgba(185,28,28,.45), inset 0 1px 0 rgba(255,180,180,.26);
-    text-shadow:0 0 12px rgba(252,165,165,.65);
-  }
-}
-@keyframes tightBloodDrip{
-  0%,100%{transform:scaleY(.72);opacity:.88;}
-  50%{transform:scaleY(1.04);opacity:1;}
-}
-.chip[data-g="Horror"], .chip[data-m="7"]{
-  overflow:visible!important;
-  font-family:'Creepster',cursive!important;
-  font-size:1.4rem!important;
-  letter-spacing:.08em;
-  padding-left:34px!important;
-  background:
-    var(--grain),
-    repeating-linear-gradient(-45deg, rgba(0,0,0,.36) 0 6px, transparent 6px 12px),
-    linear-gradient(180deg, #690713 0%, #1e0105 100%);
-  color:#ffe4e6;
-  border:2px solid #b91c1c;
-  border-radius:8px 18px 6px 16px;
-  animation:horrorSmoothPulse 4.2s ease-in-out infinite;
-}
-.chip[data-g="Horror"]::before, .chip[data-m="7"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:15px;
-  height:15px;
-  margin-top:-7.5px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fda4af'%3E%3Cpath d='M12 2C7.58 2 4 5.58 4 10c0 2.76 1.4 5.2 3.53 6.64L8 21h3v-2h2v2h3l.47-4.36C18.6 15.2 20 12.76 20 10c0-4.42-3.58-8-8-8zm-2.5 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z'/%3E%3C/svg%3E") no-repeat center/contain;
-  opacity:.9;
-}
-.chip[data-g="Horror"]::after, .chip[data-m="7"]::after{
-  content:"";
-  position:absolute;
-  left:12px;
-  right:12px;
-  top:calc(100% - 1px);
-  height:7px;
-  transform-origin:top center;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M4 0 C4 5 7 9 8.5 9 C10 9 13 5 13 0 Z M28 0 C28 4 30.5 7 32 7 C33.5 7 36 4 36 0 Z M54 0 C54 6 57 10 58.5 10 C60 10 63 6 63 0 Z M80 0 C80 4 82.5 7.5 84 7.5 C85.5 7.5 88 4 88 0 Z' fill='%23b91c1c'/%3E%3C/svg%3E") no-repeat center/100% 100%;
-  animation:tightBloodDrip 3.8s ease-in-out infinite;
-  filter:drop-shadow(0 1px 2px rgba(0,0,0,.7));
-}
-
-/* 2. DARK */
-@keyframes noirVenetianGlide{
-  0%{transform:translateX(-24px);}
-  100%{transform:translateX(24px);}
-}
-.chip[data-m="2"]{
-  font-family:'Special Elite',monospace!important;
-  font-size:1.06rem!important;
-  padding-left:34px!important;
-  background:
-    var(--grain),
-    linear-gradient(180deg, #2d2933 0%, #0e0c12 100%);
-  color:#ece8f5;
-  border:2px solid #756c85;
-  border-radius:6px;
-}
-.chip[data-m="2"]::before{
-  content:"";
-  position:absolute;
-  inset:-40%;
-  background:repeating-linear-gradient(-28deg, rgba(255,255,255,.08) 0 6px, transparent 6px 16px);
-  animation:noirVenetianGlide 6s linear infinite;
-}
-.chip[data-m="2"]::after{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:14px;
-  height:14px;
-  margin-top:-7px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23cbd5e1'%3E%3Cpath d='M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z'/%3E%3C/svg%3E") no-repeat center/contain;
-}
-
-/* 3. SCI-FI & MIND-BENDING */
-@keyframes hudLaserSmooth{
-  0%{left:-35%;opacity:0;}
-  20%{opacity:1;}
-  80%{opacity:1;}
-  100%{left:125%;opacity:0;}
-}
-@keyframes sciFiGlow{
-  0%,100%{box-shadow:0 5px 0 #030a12, 0 10px 20px rgba(0,0,0,.74), inset 0 0 8px rgba(56,189,248,.12);}
-  50%{box-shadow:0 5px 0 #030a12, 0 10px 24px rgba(14,165,233,.34), inset 0 0 14px rgba(56,189,248,.26);}
-}
-.chip[data-g="Sci-Fi"], .chip[data-m="3"]{
-  font-family:'Orbitron',sans-serif!important;
-  font-size:.92rem!important;
-  font-weight:700;
-  letter-spacing:.1em;
-  background:
-    linear-gradient(90deg, rgba(56,189,248,.16) 1px, transparent 1px) 0 0 / 12px 12px,
-    linear-gradient(rgba(56,189,248,.16) 1px, transparent 1px) 0 0 / 12px 12px,
-    linear-gradient(180deg, #0b3252 0%, #04111f 100%);
-  color:#bae6fd;
-  border:2px solid #0ea5e9;
-  clip-path:polygon(11px 0, calc(100% - 11px) 0, 100% 11px, 100% calc(100% - 11px), calc(100% - 11px) 100%, 11px 100%, 0 calc(100% - 11px), 0 11px);
-  border-radius:0;
-  padding-inline:28px;
-  animation:sciFiGlow 4.4s ease-in-out infinite;
-}
-.chip[data-g="Sci-Fi"]::before, .chip[data-m="3"]::before{
-  content:"◈";
-  color:#38bdf8;
-  font-size:1rem;
-  text-shadow:0 0 8px #38bdf8;
-}
-.chip[data-g="Sci-Fi"]::after, .chip[data-m="3"]::after{
-  content:"";
-  position:absolute;
-  top:0;
-  bottom:0;
-  width:28%;
-  left:-35%;
-  background:linear-gradient(90deg, transparent, rgba(125,211,252,.44), transparent);
-  transform:skewX(-18deg);
-  animation:hudLaserSmooth 3.8s ease-in-out infinite;
-}
-
-/* 4. ACTION & HYPED */
-@keyframes actionStripesSmooth{
-  0%{background-position:0 0, 0 0;}
-  100%{background-position:40px 0, 0 0;}
-}
-@keyframes actionKineticFloat{
-  0%,100%{transform:skewX(-6deg) translateY(0);}
-  50%{transform:skewX(-7.5deg) translateY(-2px);}
-}
-.chip[data-g="Action"], .chip[data-m="1"]{
-  font-family:'Bangers',cursive!important;
-  font-size:1.36rem!important;
-  letter-spacing:.1em;
-  padding-left:34px!important;
-  background:
-    repeating-linear-gradient(-55deg, rgba(255,255,255,.11) 0 8px, transparent 8px 18px),
-    linear-gradient(180deg, #c2410c 0%, #7c2d12 100%);
-  background-size:40px 40px, auto;
-  color:#ffedd5;
-  border:2px solid #f97316;
-  animation:actionStripesSmooth 2s linear infinite, actionKineticFloat 3.4s ease-in-out infinite;
-}
-.chip[data-g="Action"]::before, .chip[data-m="1"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:14px;
-  height:14px;
-  margin-top:-7px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fde047'%3E%3Cpolygon points='13 2 3 14 12 14 11 22 21 10 12 10 13 2'/%3E%3C/svg%3E") no-repeat center/contain;
-  filter:drop-shadow(0 0 5px rgba(253,224,71,.7));
-}
-.chip[data-g="Action"].on, .chip[data-m="1"].on{
-  transform:skewX(-6deg) translateY(-4px) scale(1.04);
-}
-
-/* 5. ADVENTURE & EPIC */
-@keyframes compassSpinSmooth{
-  0%{transform:rotate(0deg);}
-  100%{transform:rotate(360deg);}
-}
-@keyframes emeraldCrestPulse{
-  0%,100%{box-shadow:0 5px 0 #011711, 0 10px 20px rgba(0,0,0,.74), inset 0 1px 0 rgba(255,255,255,.2);}
-  50%{box-shadow:0 5px 0 #011711, 0 12px 24px rgba(16,185,129,.32), inset 0 1px 0 rgba(255,255,255,.32);}
-}
-.chip[data-g="Adventure"], .chip[data-m="9"]{
-  font-family:'Cinzel Decorative',serif!important;
-  font-size:1rem!important;
-  font-weight:700;
-  letter-spacing:.06em;
-  padding-left:36px!important;
-  background:
-    var(--grain),
-    linear-gradient(180deg, #065f46 0%, #022c22 100%);
-  color:#d1fae5;
-  border:3px double #34d399;
-  border-radius:8px;
-  animation:emeraldCrestPulse 4.6s ease-in-out infinite;
-}
-.chip[data-g="Adventure"]::before, .chip[data-m="9"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:16px;
-  height:16px;
-  margin-top:-8px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236ee7b7' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpolygon points='12,5 14.5,12 12,19 9.5,12' fill='%2334d399' stroke='none'/%3E%3C/svg%3E") no-repeat center/contain;
-  animation:compassSpinSmooth 10s linear infinite;
-}
-
-/* 6. COMEDY & FUNNY */
-@keyframes marqueeBulbsSmooth{
-  0%,100%{
-    transform:translateY(0);
-    box-shadow:0 5px 0 #3d1906, 0 10px 20px rgba(0,0,0,.74), 0 0 10px rgba(251,191,36,.24), inset 0 1px 0 rgba(255,255,255,.28);
-  }
-  50%{
-    transform:translateY(-2px);
-    box-shadow:0 5px 0 #3d1906, 0 12px 24px rgba(0,0,0,.78), 0 0 22px rgba(253,224,71,.58), inset 0 1px 0 rgba(255,255,255,.46);
-  }
-}
-.chip[data-g="Comedy"], .chip[data-m="4"]{
-  font-family:'Chewy',cursive!important;
-  font-size:1.28rem!important;
-  letter-spacing:.05em;
-  padding-left:36px!important;
-  background:
-    radial-gradient(circle, rgba(255,255,255,.16) 1.5px, transparent 1.5px) 0 0 / 10px 10px,
-    linear-gradient(180deg, #d97706 0%, #78350f 100%);
-  color:#fef3c7;
-  border:2px dashed #fde047;
-  border-radius:999px;
-  animation:marqueeBulbsSmooth 3.6s ease-in-out infinite;
-}
-.chip[data-g="Comedy"]::before, .chip[data-m="4"]::before{
-  content:"";
-  position:absolute;
-  left:13px;
-  top:50%;
-  width:16px;
-  height:16px;
-  margin-top:-8px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fef08a' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Ccircle cx='9' cy='10' r='1' fill='%23fef08a'/%3E%3Ccircle cx='15' cy='10' r='1' fill='%23fef08a'/%3E%3Cpath d='M8.5 14.5c1 1.5 2.2 2 3.5 2s2.5-.5 3.5-2'/%3E%3C/svg%3E") no-repeat center/contain;
-}
-
-/* 7. ROMANCE & DATE NIGHT */
-@keyframes heartBeatSmooth{
-  0%,100%{transform:scale(1);}
-  35%{transform:scale(1.024);}
-  70%{transform:scale(1.008);}
-}
-@keyframes heartFloatGentle{
-  0%,100%{transform:translateY(1.5px) scale(.9);opacity:.55;}
-  50%{transform:translateY(-2.5px) scale(1.12);opacity:1;}
-}
-.chip[data-g="Romance"], .chip[data-m="6"]{
-  font-family:'Dancing Script',cursive!important;
-  font-size:1.46rem!important;
-  font-weight:700;
-  background:
-    var(--velvet-weave),
-    linear-gradient(180deg, #be185d 0%, #6b0f35 100%);
-  color:#fce7f3;
-  border:2px solid #fb7185;
-  border-radius:999px;
-  padding-inline:28px;
-  animation:heartBeatSmooth 3.4s ease-in-out infinite;
-}
-.chip[data-g="Romance"]::before, .chip[data-m="6"]::before{
-  content:"♥";
-  color:#fda4af;
-  font-size:1.05rem;
-  font-style:normal;
-  font-family:sans-serif;
-}
-.chip[data-g="Romance"]::after, .chip[data-m="6"]::after{
-  content:"♥";
-  font-size:.82rem;
-  font-family:sans-serif;
-  color:#fecdd3;
-  margin-left:2px;
-  animation:heartFloatGentle 3.4s ease-in-out infinite;
-}
-
-/* 8. DRAMA, HEARTFELT & CRY IT OUT */
-@keyframes velvetSheenSweep{
-  0%{background-position:135% 0, 0 0, 0 0;}
-  100%{background-position:-135% 0, 0 0, 0 0;}
-}
-@keyframes rainDriftSmooth{
-  0%{background-position:0 0, 0 0;}
-  100%{background-position:16px 32px, 0 0;}
-}
-.chip[data-g="Drama"], .chip[data-m="5"]{
-  font-family:'DM Serif Display',serif!important;
-  font-size:1.18rem!important;
-  padding-left:34px!important;
-  background:
-    linear-gradient(108deg, transparent 28%, rgba(255,255,255,.16) 50%, transparent 72%),
-    var(--grain),
-    linear-gradient(180deg, #3730a3 0%, #1e1b4b 100%);
-  background-size:220% 100%, auto, auto;
-  color:#e0e7ff;
-  border:2px solid #818cf8;
-  border-radius:12px;
-  animation:velvetSheenSweep 4.8s ease-in-out infinite;
-}
-.chip[data-g="Drama"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:15px;
-  height:15px;
-  margin-top:-7.5px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c7d2fe' stroke-width='2'%3E%3Crect x='3' y='4' width='18' height='16' rx='2'/%3E%3Cline x1='3' y1='9' x2='21' y2='9'/%3E%3Cline x1='8' y1='4' x2='10' y2='9'/%3E%3Cline x1='14' y1='4' x2='16' y2='9'/%3E%3C/svg%3E") no-repeat center/contain;
-}
-.chip[data-m="5"]::before{
-  content:"✦";
-  position:absolute;
-  left:13px;
-  top:50%;
-  transform:translateY(-50%);
-  color:#c7d2fe;
-  font-size:.95rem;
-}
-.chip[data-m="11"]{
-  font-family:'DM Serif Display',serif!important;
-  font-size:1.18rem!important;
-  padding-left:34px!important;
-  background:
-    repeating-linear-gradient(108deg, rgba(186,230,253,.2) 0 1.5px, transparent 1.5px 13px),
-    linear-gradient(180deg, #2563eb 0%, #172554 100%);
-  background-size:16px 32px, auto;
-  color:#dbeafe;
-  border:2px solid #60a5fa;
-  border-radius:12px;
-  animation:rainDriftSmooth 1.8s linear infinite;
-}
-.chip[data-m="11"]::before{
-  content:"";
-  position:absolute;
-  left:13px;
-  top:50%;
-  width:13px;
-  height:15px;
-  margin-top:-7.5px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2393c5fd'%3E%3Cpath d='M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z'/%3E%3C/svg%3E") no-repeat center/contain;
-}
-
-/* 9. THRILLER & MYSTERY */
-@keyframes radarSweepSmooth{
-  0%{left:-45%;}
-  100%{left:120%;}
-}
-@keyframes radarGlowPulse{
-  0%,100%{box-shadow:0 5px 0 #021716, 0 10px 20px rgba(0,0,0,.74);}
-  50%{box-shadow:0 5px 0 #021716, 0 12px 24px rgba(45,212,191,.3);}
-}
-.chip[data-g="Thriller"], .chip[data-g="Mystery"]{
-  font-family:'Courier Prime',monospace!important;
-  font-size:1rem!important;
-  font-weight:700;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  padding-left:34px!important;
-  background:
-    var(--grain),
-    linear-gradient(180deg, #115e59 0%, #042f2e 100%);
-  color:#ccfbf1;
-  border:2px dashed #2dd4bf;
-  border-radius:6px;
-  animation:radarGlowPulse 4.2s ease-in-out infinite;
-}
-.chip[data-g="Thriller"]::before{
-  content:"⏱";
-  position:absolute;
-  left:12px;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:1rem;
-  color:#5eead4;
-}
-.chip[data-g="Mystery"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:15px;
-  height:15px;
-  margin-top:-7.5px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235eead4' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cline x1='20' y1='20' x2='16.2' y2='16.2'/%3E%3C/svg%3E") no-repeat center/contain;
-}
-.chip[data-g="Thriller"]::after, .chip[data-g="Mystery"]::after{
-  content:"";
-  position:absolute;
-  top:0;
-  bottom:0;
-  width:38%;
-  left:-45%;
-  background:linear-gradient(90deg, transparent, rgba(45,212,191,.34), transparent);
-  transform:skewX(-18deg);
-  animation:radarSweepSmooth 3.4s ease-in-out infinite;
-}
-
-/* 10. CRIME */
-@keyframes smoothPoliceAura{
-  0%,100%{
-    border-left-color:#ef4444;
-    box-shadow:0 5px 0 #080707, -5px 0 16px rgba(239,68,68,.44), 0 10px 20px rgba(0,0,0,.74);
-  }
-  50%{
-    border-left-color:#3b82f6;
-    box-shadow:0 5px 0 #080707, -5px 0 16px rgba(59,130,246,.46), 0 10px 20px rgba(0,0,0,.74);
-  }
-}
-.chip[data-g="Crime"]{
-  font-family:'Special Elite',monospace!important;
-  font-size:1.06rem!important;
-  padding-left:34px!important;
-  background:
-    var(--grain),
-    linear-gradient(180deg, #292524 0%, #141211 100%);
-  color:#f5f5f4;
-  border:2px solid #78716c;
-  border-left:8px solid #ef4444;
-  border-radius:6px;
-  animation:smoothPoliceAura 4.2s ease-in-out infinite;
-}
-.chip[data-g="Crime"]::before{
-  content:"";
-  position:absolute;
-  left:11px;
-  top:50%;
-  width:15px;
-  height:15px;
-  margin-top:-7.5px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fca5a5' stroke-width='2'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E") no-repeat center/contain;
-}
-
-/* 11. FANTASY */
-@keyframes runeAuraSmooth{
-  0%,100%{box-shadow:0 5px 0 #1e0333, 0 0 14px rgba(168,85,247,.32), 0 10px 20px rgba(0,0,0,.74);}
-  50%{box-shadow:0 5px 0 #1e0333, 0 0 24px rgba(216,180,254,.62), 0 10px 20px rgba(0,0,0,.74);}
-}
-@keyframes arcaneStarSpin{
-  0%{transform:rotate(0deg) scale(.92);}
-  50%{transform:rotate(180deg) scale(1.1);}
-  100%{transform:rotate(360deg) scale(.92);}
-}
-.chip[data-g="Fantasy"]{
-  font-family:'MedievalSharp',cursive!important;
-  font-size:1.22rem!important;
-  padding-left:34px!important;
-  background:
-    var(--velvet-weave),
-    linear-gradient(180deg, #6b21a8 0%, #3b0764 100%);
-  color:#f3e8ff;
-  border:2px solid #c084fc;
-  border-radius:18px 4px 18px 4px;
-  animation:runeAuraSmooth 4.4s ease-in-out infinite;
-}
-.chip[data-g="Fantasy"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:15px;
-  height:15px;
-  margin-top:-7.5px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e9d5ff'%3E%3Cpath d='M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z'/%3E%3C/svg%3E") no-repeat center/contain;
-  animation:arcaneStarSpin 8s linear infinite;
-}
-
-/* 12. ANIMATION, FAMILY & COZY */
-@keyframes cozyFloatGentle{
-  0%,100%{transform:translateY(0);}
-  50%{transform:translateY(-2.5px);}
-}
-@keyframes steamRiseSmooth{
-  0%,100%{transform:translateY(1.5px);opacity:.6;}
-  50%{transform:translateY(-2px);opacity:1;}
-}
-.chip[data-g="Animation"], .chip[data-g="Family"], .chip[data-m="0"], .chip[data-m="10"]{
-  font-family:'Fredoka',sans-serif!important;
-  font-size:1.08rem!important;
-  font-weight:600;
-  padding-left:34px!important;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,.2), transparent 60%),
-    linear-gradient(180deg, #0369a1 0%, #0c4a6e 100%);
-  color:#e0f2fe;
-  border:2px solid #38bdf8;
-  border-radius:22px;
-  animation:cozyFloatGentle 4s ease-in-out infinite;
-}
-.chip[data-g="Animation"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:15px;
-  height:15px;
-  margin-top:-7.5px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23bae6fd' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Ccircle cx='9' cy='10' r='1.2' fill='%23bae6fd'/%3E%3Ccircle cx='15' cy='10' r='1.2' fill='%23bae6fd'/%3E%3Ccircle cx='12' cy='15' r='1.2' fill='%23bae6fd'/%3E%3C/svg%3E") no-repeat center/contain;
-}
-.chip[data-g="Family"]::before, .chip[data-m="10"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:15px;
-  height:15px;
-  margin-top:-7.5px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23bae6fd'%3E%3Cpolygon points='12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2'/%3E%3C/svg%3E") no-repeat center/contain;
-}
-.chip[data-m="0"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:15px;
-  height:16px;
-  margin-top:-8px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23bae6fd' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M8 19c0-3 2-4 2-7s-2-4-2-7'/%3E%3Cpath d='M15 19c0-3 2-4 2-7s-2-4-2-7'/%3E%3C/svg%3E") no-repeat center/contain;
-  animation:steamRiseSmooth 3.2s ease-in-out infinite;
-}
-
-/* 13. DOCUMENTARY & TRUE STORY */
-@keyframes filmScrollSmooth{
-  0%{background-position:0 0, 0 0;}
-  100%{background-position:24px 0, 0 0;}
-}
-@keyframes recBreatheSmooth{
-  0%,100%{opacity:.45;transform:scale(.9);box-shadow:0 0 4px #ef4444;}
-  50%{opacity:1;transform:scale(1.12);box-shadow:0 0 10px #ef4444;}
-}
-.chip[data-g="Documentary"], .chip[data-m="13"]{
-  font-family:'Share Tech Mono',monospace!important;
-  font-size:1.02rem!important;
-  background:
-    repeating-linear-gradient(90deg, rgba(255,255,255,.11) 0 5px, transparent 5px 12px),
-    linear-gradient(180deg, #3f6212 0%, #1a2e05 100%);
-  background-size:24px 100%, auto;
-  color:#ecfccb;
-  border:2px solid #84cc16;
-  border-radius:6px;
-  animation:filmScrollSmooth 2.2s linear infinite;
-}
-.chip[data-g="Documentary"]::before, .chip[data-m="13"]::before{
-  content:"";
-  width:9px;
-  height:9px;
-  border-radius:50%;
-  background:#ef4444;
-  animation:recBreatheSmooth 2.6s ease-in-out infinite;
-}
-
-/* 14. HISTORY */
-@keyframes historyParchmentSweep{
-  0%{background-position:135% 0, 0 0, 0 0;}
-  100%{background-position:-135% 0, 0 0, 0 0;}
-}
-.chip[data-g="History"]{
-  font-family:'Playfair Display',serif!important;
-  font-size:1.12rem!important;
-  padding-left:34px!important;
-  background:
-    linear-gradient(110deg, transparent 28%, rgba(253,224,71,.2) 50%, transparent 72%),
-    var(--grain),
-    linear-gradient(180deg, #713f12 0%, #422006 100%);
-  background-size:220% 100%, auto, auto;
-  color:#fef9c3;
-  border:2px solid #eab308;
-  border-radius:8px;
-  animation:historyParchmentSweep 5s ease-in-out infinite;
-}
-.chip[data-g="History"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:15px;
-  height:15px;
-  margin-top:-7.5px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fde047' stroke-width='2'%3E%3Cpath d='M4 19.5A2.5 2.5 0 0 1 6.5 17H20'/%3E%3Cpath d='M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z'/%3E%3C/svg%3E") no-repeat center/contain;
-}
-
-/* 15. MUSIC */
-@keyframes vinylSpinSmooth{
-  0%{transform:rotate(0deg);}
-  100%{transform:rotate(360deg);}
-}
-.chip[data-g="Music"]{
-  font-family:'Righteous',cursive!important;
-  font-size:1.12rem!important;
-  padding-left:38px!important;
-  padding-right:26px!important;
-  background:
-    repeating-radial-gradient(circle at center, rgba(255,255,255,.09) 0 2px, transparent 2px 6px),
-    linear-gradient(180deg, #86198f 0%, #4a044e 100%);
-  color:#fae8ff;
-  border:2px solid #e879f9;
-  border-radius:999px;
-}
-.chip[data-g="Music"]::before{
-  content:"";
-  position:absolute;
-  left:13px;
-  top:50%;
-  width:17px;
-  height:17px;
-  margin-top:-8.5px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='10' fill='%2318181b' stroke='%23f0abfc' stroke-width='1.6'/%3E%3Ccircle cx='12' cy='12' r='6' fill='none' stroke='%23e879f9' stroke-width='1.1' stroke-dasharray='4 2'/%3E%3Ccircle cx='12' cy='12' r='2.5' fill='%23f0abfc'/%3E%3C/svg%3E") no-repeat center/contain;
-  animation:vinylSpinSmooth 4.2s linear infinite;
-}
-
-/* 16. WAR */
-@keyframes reticleBreatheSmooth{
-  0%,100%{transform:rotate(0deg) scale(.94);}
-  50%{transform:rotate(90deg) scale(1.08);}
-}
-.chip[data-g="War"]{
-  font-family:'Black Ops One',cursive!important;
-  font-size:1.06rem!important;
-  padding-left:36px!important;
-  background:
-    var(--grain),
-    linear-gradient(180deg, #365314 0%, #1a2e05 100%);
-  color:#d9f99d;
-  border:2px solid #84cc16;
-  border-radius:4px;
-}
-.chip[data-g="War"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:16px;
-  height:16px;
-  margin-top:-8px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23bef264' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='8'/%3E%3Cline x1='12' y1='2' x2='12' y2='6'/%3E%3Cline x1='12' y1='18' x2='12' y2='22'/%3E%3Cline x1='2' y1='12' x2='6' y2='12'/%3E%3Cline x1='18' y1='12' x2='22' y2='12'/%3E%3C/svg%3E") no-repeat center/contain;
-  animation:reticleBreatheSmooth 7s ease-in-out infinite;
-}
-
-/* 17. WESTERN */
-@keyframes sheriffStarSpinSmooth{
-  0%{transform:rotate(0deg);}
-  100%{transform:rotate(360deg);}
-}
-.chip[data-g="Western"]{
-  font-family:'Rye',serif!important;
-  font-size:1.06rem!important;
-  padding-left:36px!important;
-  background:
-    var(--grain),
-    linear-gradient(180deg, #9a3412 0%, #431407 100%);
-  color:#ffedd5;
-  border:2px solid #fb923c;
-  border-radius:8px;
-}
-.chip[data-g="Western"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:16px;
-  height:16px;
-  margin-top:-8px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fdba74'%3E%3Cpolygon points='12,2 14.9,8.6 22,9.3 16.6,14 18.2,21 12,17.3 5.8,21 7.4,14 2,9.3 9.1,8.6'/%3E%3C/svg%3E") no-repeat center/contain;
-  animation:sheriffStarSpinSmooth 10s linear infinite;
-}
-
-/* 18. NOSTALGIC */
-@keyframes crtScanDriftSmooth{
-  0%{background-position:0 0, 0 0;}
-  100%{background-position:0 8px, 0 0;}
-}
-@keyframes arcadeGlowSmooth{
-  0%,100%{text-shadow:1.5px 0 rgba(239,68,68,.75), -1.5px 0 rgba(56,189,248,.75);}
-  50%{text-shadow:-1.5px 0 rgba(239,68,68,.75), 1.5px 0 rgba(56,189,248,.75);}
-}
-.chip[data-m="8"]{
-  font-family:'Press Start 2P',monospace!important;
-  font-size:.78rem!important;
-  line-height:1.4;
-  padding:15px 20px 15px 36px!important;
-  background:
-    repeating-linear-gradient(0deg, rgba(0,0,0,.22) 0 2px, transparent 2px 4px),
-    #1d4ed8;
-  background-size:100% 8px, auto;
-  color:#dbeafe;
-  border:3px solid #60a5fa;
-  border-radius:4px;
-  animation:crtScanDriftSmooth 2.4s linear infinite, arcadeGlowSmooth 3.8s ease-in-out infinite;
-}
-.chip[data-m="8"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:15px;
-  height:15px;
-  margin-top:-7.5px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2393c5fd'%3E%3Crect x='3' y='7' width='18' height='10' rx='2'/%3E%3Crect x='6' y='10' width='4' height='4' fill='%231d4ed8'/%3E%3Ccircle cx='15.5' cy='11' r='1.2' fill='%231d4ed8'/%3E%3Ccircle cx='17.5' cy='13' r='1.2' fill='%231d4ed8'/%3E%3C/svg%3E") no-repeat center/contain;
-}
-
-/* 19. HIDDEN GEM */
-@keyframes prismGlintSweep{
-  0%{background-position:135% 0, 0 0, 0 0;}
-  100%{background-position:-135% 0, 0 0, 0 0;}
-}
-.chip[data-m="12"]{
-  font-family:'Fascinate',cursive!important;
-  font-size:1.2rem!important;
-  padding-left:36px!important;
-  background:
-    linear-gradient(120deg, transparent 26%, rgba(255,255,255,.28) 50%, transparent 74%),
-    var(--velvet-weave),
-    linear-gradient(180deg, #0f766e 0%, #134e4a 100%);
-  background-size:220% 100%, auto, auto;
-  color:#ccfbf1;
-  border:2px solid #2dd4bf;
-  border-radius:12px;
-  animation:prismGlintSweep 4.2s ease-in-out infinite;
-}
-.chip[data-m="12"]::before{
-  content:"";
-  position:absolute;
-  left:12px;
-  top:50%;
-  width:15px;
-  height:15px;
-  margin-top:-7.5px;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235eead4' stroke-width='2'%3E%3Cpolygon points='6 3 18 3 22 9 12 21 2 9'/%3E%3Cline x1='2' y1='9' x2='22' y2='9'/%3E%3C/svg%3E") no-repeat center/contain;
-}
+/* Colour refinement: jewel-tone gradients, top-lit gloss, readable text */
+#genres [data-g=Action]{--a:#ff7a2f;--bg:linear-gradient(160deg,#ff6a1f,#c2260c 55%,#5c0a05);}
+#genres [data-g=Adventure]{--a:#f5c04a;--bg:linear-gradient(160deg,#e0a23a,#a35a1a 55%,#4a2108);--fc:#fff8e6;}
+#genres [data-g=Animation]{--a:#ff8fd0;--bg:linear-gradient(135deg,#8b5cf6,#d946ef 55%,#fb7185);}
+#genres [data-g=Comedy]{--a:#ffe14d;--bg:linear-gradient(160deg,#ffd43b,#ff9f1c 55%,#f0610f);--fc:#3a1400;--ts:0 1px 0 rgba(255,255,255,.5);}
+#genres [data-g=Crime]{--a:#5aa2ff;--bg:linear-gradient(160deg,#1e3a8a,#0f1f4d 55%,#070d24);--fc:#e6f0ff;}
+#genres [data-g=Documentary]{--a:#d9c9a3;--bg:linear-gradient(160deg,#6b5f48,#3e362a 60%,#211c15);--fc:#fbf5e6;}
+#genres [data-g=Drama]{--a:#fb4a72;--bg:linear-gradient(180deg,transparent 35%,rgba(30,0,10,.6)),repeating-linear-gradient(90deg,#9a1433 0 14px,#bd1f44 14px 28px);}
+#genres [data-g=Family]{--a:#6ee7a0;--bg:linear-gradient(160deg,#34d399,#059669 55%,#065f46);--fc:#f0fff7;}
+#genres [data-g=Fantasy]{--a:#c4a4ff;--bg:linear-gradient(160deg,#7c3aed,#4c1d95 55%,#1e0a4a);}
+#genres [data-g=History]{--a:#e0b866;--bg:linear-gradient(160deg,#8a6a2c,#523b14 55%,#2a1c08);--fc:#fff4d6;}
+#genres [data-g=Horror]{--a:#ef2b2b;--bg:linear-gradient(180deg,#3d0507,#160002 60%,#000);}
+#genres [data-g=Music]{--a:#f472d0;--bg:linear-gradient(135deg,#6d28d9,#c026d3 55%,#ec4899);}
+#genres [data-g=Mystery]{--a:#7ea6c9;--bg:linear-gradient(160deg,#2b4263,#16243a 55%,#0a1220);--fc:#e4eef9;}
+#genres [data-g=Romance]{--a:#ff7a9c;--bg:linear-gradient(160deg,#ff5c8a,#c81e5b 55%,#6b0a30);}
+#genres [data-g=Sci-Fi]{--a:#3fe0ff;--bg:linear-gradient(160deg,#0a4a73,#062c4a 55%,#02111f);--fc:#dff8ff;}
+#genres [data-g=Thriller]{--a:#ff3b3b;--bg:linear-gradient(160deg,#4a1015,#1c0709 60%,#050102);}
+#genres [data-g=War]{--a:#a5b45a;--bg:linear-gradient(160deg,#5a6b3a,#34421f 55%,#1a2310);--fc:#f1f5e0;}
+#genres [data-g=Western]{--a:#e39a52;--bg:linear-gradient(160deg,#b3692c,#7a3f14 55%,#3d1d08);--fc:#fff0d8;}
+#moods [data-m="0"]{--a:#ffb457;--bg:linear-gradient(160deg,#f59e55,#c2571e 55%,#7a2c0c);--fc:#fff6ea;}
+#moods [data-m="1"]{--a:#ffe14d;--bg:linear-gradient(135deg,#ff2d95,#ff6a00);}
+#moods [data-m="2"]{--a:#8b8fa3;--bg:linear-gradient(160deg,#2c2d38,#14151b 55%,#050507);--fc:#e8e9f0;}
+#moods [data-m="3"]{--a:#c4a4ff;--bg:linear-gradient(120deg,#5b21b6,#0891b2 50%,#be185d);}
+#moods [data-m="4"]{--a:#ffe14d;--bg:linear-gradient(160deg,#ffe14d,#ffb020 60%,#ff8a1f);--fc:#3a1a00;--ts:0 1px 0 rgba(255,255,255,.5);}
+#moods [data-m="5"]{--a:#ffb3d1;--bg:linear-gradient(160deg,#e0527f,#9d2a55 55%,#4a1128);}
+#moods [data-m="6"]{--a:#f0a0ff;--bg:linear-gradient(135deg,#a21caf,#6b1b6e 55%,#2e0a3a);}
+#moods [data-m="7"]{--a:#a3e635;--bg:linear-gradient(160deg,#2f5d12,#173008 55%,#060e02);--fc:#eaffd0;}
+#moods [data-m="8"]{--a:#ffd23f;--bg:linear-gradient(180deg,#5b21b6,#2a0e5c 60%,#10052e);}
+#moods [data-m="9"]{--a:#ffd23f;--bg:linear-gradient(160deg,#d4a017,#8a5a06 55%,#3a2402);--fc:#fffbe6;}
+#moods [data-m="10"]{--a:#7dd3fc;--bg:linear-gradient(160deg,#38bdf8,#0284c7 55%,#075985);}
+#moods [data-m="11"]{--a:#7fb4ff;--bg:linear-gradient(160deg,#3b5ea8,#1e3366 55%,#0b1530);}
+#moods [data-m="12"]{--a:#5eead4;--bg:linear-gradient(160deg,#14b8a6,#0f766e 55%,#053f3b);}
+#moods [data-m="13"]{--a:#f5f1e6;--bg:linear-gradient(160deg,#f3ecd9,#d6cdb4 60%,#b3a98d);--fc:#1d1a12;}
 
 /* Inputs & Group List */
 #grp{margin-top:16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
@@ -1972,6 +1315,45 @@ input:focus,textarea:focus{border-color:var(--red-glow);box-shadow:inset 0 2px 6
   .ac-item{flex-wrap:wrap}
   .ac-actions{width:100%;justify-content:flex-end}
 }
+
+/* ==========================================================================
+   TEXTURE + MOTION PASS
+   ========================================================================== */
+html::before{content:"";position:fixed;inset:-50%;z-index:30;pointer-events:none;opacity:.2;mix-blend-mode:overlay;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");animation:grainShift .8s steps(6) infinite}
+html::after{content:"";position:fixed;inset:0;z-index:31;pointer-events:none;background:radial-gradient(ellipse at 50% 38%,transparent 42%,rgba(0,0,0,.6) 100%),repeating-linear-gradient(0deg,rgba(255,255,255,.02) 0 1px,transparent 1px 3px);animation:projectorFlicker 6s steps(1) infinite}
+@keyframes grainShift{0%{transform:translate(0,0)}20%{transform:translate(-3%,2%)}40%{transform:translate(2%,-3%)}60%{transform:translate(-2%,-1%)}80%{transform:translate(3%,3%)}100%{transform:translate(0,0)}}
+@keyframes projectorFlicker{0%,100%{opacity:1}7%{opacity:.92}8%{opacity:1}52%{opacity:.96}53%{opacity:1}}
+.bx,.sheet{outline:1px dashed rgba(255,225,225,.09);outline-offset:-9px;background-blend-mode:soft-light,normal}
+.bx::after,.sheet::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:.07;mix-blend-mode:overlay;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .6' numOctaves='3' seed='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E")}
+.bx,.sheet{position:relative}
+.slate{box-shadow:inset 0 0 40px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.07)}
+.card .ph{box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),inset 0 -46px 56px rgba(0,0,0,.4)}
+.nav-dock{backdrop-filter:blur(12px) saturate(1.25)}
+.chip,.bt{background-blend-mode:multiply,normal}
+
+@keyframes cardIn{from{opacity:0;transform:translateY(28px) scale(.94);filter:blur(4px)}}
+@keyframes imgIn{from{opacity:0;transform:scale(1.08);filter:blur(6px) brightness(1.3)}}
+@keyframes sheetIn{from{opacity:0;transform:translateY(30px) scale(.94)}}
+@keyframes ovIn{from{opacity:0}}
+@keyframes secIn{from{opacity:0;transform:translateY(18px);filter:blur(5px)}}
+@keyframes tabPop{0%{transform:scale(.9)}60%{transform:scale(1.07)}100%{transform:scale(1)}}
+.sec{animation:secIn .6s var(--ease) both}
+.card{animation:cardIn .65s var(--ease) backwards;animation-delay:calc(var(--i,0)*60ms);transition:transform .5s var(--spring),box-shadow .45s var(--ease),opacity .36s,filter .4s}
+.card:hover{transform:translateY(-8px) rotate(-.5deg) scale(1.015);box-shadow:0 22px 44px rgba(0,0,0,.8),0 0 26px rgba(161,14,34,.3)}
+.card.out{opacity:0;transform:scale(.88)}
+.card .ph img,.ac-thumb img{animation:imgIn .7s var(--ease) both}
+.ov{animation:ovIn .3s ease both}
+.sheet{animation:sheetIn .5s var(--spring) both}
+.tabs button{transition:color .3s,background .3s,box-shadow .3s,transform .35s var(--spring)}
+.tabs button:hover{transform:translateY(-2px)}
+.tabs button:active{transform:scale(.95)}
+.tabs button.on{animation:tabPop .45s var(--spring)}
+.bx{transition:border-color .4s,box-shadow .4s}
+.bx:hover{box-shadow:0 18px 40px rgba(0,0,0,.6),0 0 24px rgba(130,9,25,.22)}
+.c b{transition:transform .3s var(--spring),text-shadow .3s}
+.cb:hover b{text-shadow:0 0 14px rgba(255,120,130,.5)}
+.cb:active b{transform:scale(.92)}
+.action:active,.choose-btn:active,.search-btn:active{transition-duration:.08s}
 @media(prefers-reduced-motion:reduce){
   *,::before,::after{animation-duration:.01s!important;animation-iteration-count:1!important;transition-duration:.01s!important}
 }
@@ -2016,7 +1398,7 @@ input:focus,textarea:focus{border-color:var(--red-glow);box-shadow:inset 0 2px 6
   <div class="bx wide ac-box" id="acWrap">
     <div class="ac-header">
       <h3>Have a Movie in Mind?</h3>
-      <span>Type a title for instant matches from your library &amp; TMDB (↑↓ to navigate, Enter to open)</span>
+      <span>Type a title for instant matches from your library &amp; TMDB (arrow keys to navigate, Enter to open)</span>
     </div>
     <div class="ac-input-wrap">
       <input type="search" id="pickSearch" placeholder="Start typing a movie title (e.g. Dune, Inception, Spirited Away)..." autocomplete="off" aria-label="Search movies with live autocomplete">
@@ -2153,9 +1535,12 @@ chips('#who',[['solo','Solo'],['group','Group night']],'w',v=>v==='solo');
 const tog=(sel,fn)=>document.querySelectorAll(sel).forEach(b=>b.classList.toggle('on',fn(b)));
 
 function scene(){
-  fld('#fMood',F.mood?F.mood.n:(F.genres.size?[...F.genres].join(', '):'Anything'));
-  fld('#fGenre',F.genres.size?[...F.genres].join(', '):(F.mood&&F.mood.g?F.mood.g.slice(0,2).join(' / '):'Any'));
-  fld('#fLen',(TIMES.find(x=>x[0]===F.max)||TIMES[0])[1]);
+  const d=F.mood;
+  fld('#fMood',d?d.n:'Anything');
+  fld('#fGenre',F.genres.size?[...F.genres].join(' + '):(d&&d.g?d.g.join(' / '):'Any'));
+  let len=(TIMES.find(x=>x[0]===F.max)||TIMES[0])[1];
+  if(d&&d.rt)len=F.max?`${d.rt}-${F.max} min`:`${d.rt}+ min`;
+  fld('#fLen',len);
   fld('#fWho',grp?'Group night':'Solo');
 }
 
@@ -2202,6 +1587,7 @@ $('#times').onclick=e=>{
   F.max=+t;
   tog('#times .chip',b=>+b.dataset.t===F.max);
   scene();
+  toast('Length set to '+(TIMES.find(x=>x[0]===F.max)||TIMES[0])[1]);
 };
 
 $('#who').onclick=e=>{
@@ -2243,11 +1629,11 @@ function match(m){
   if(d){
     if(d.g&&!mg.some(g=>d.g.includes(g)))return false;
     if(d.y&&(!m.year||m.year>d.y))return false;
-    if(d.rt&&(!m.runtime||m.runtime<d.rt))return false;
+    if(d.rt&&!m.tmdb_only&&(!m.runtime||m.runtime<d.rt))return false;
     if(d.gem&&!(m.rating>=7))return false;
   }
   if(F.genres.size&&![...F.genres].every(g=>mg.includes(normGenre(g))))return false;
-  if(F.max&&(!m.runtime||m.runtime>F.max))return false;
+  if(F.max&&!m.tmdb_only&&(!m.runtime||m.runtime>F.max))return false;
   return true;
 }
 const pool=()=>S.movies.filter(m=>!m.watched&&!m.veto&&!skipped.has(m.id)&&match(m)).map(R);
@@ -2278,41 +1664,29 @@ async function discover(customPage){
   const d=F.mood;
   const moodGs=(d&&d.g)?normGenres(d.g):[];
   const selGs=F.genres.size?normGenres([...F.genres]):[];
-  const p={
-    sort_by:'popularity.desc',
-    'vote_count.gte':d&&d.gem?250:350,
-    page:customPage||(1+Math.floor(Math.random()*5))
+  const base={sort_by:'popularity.desc','vote_count.gte':d&&d.gem?250:350};
+  if(F.max){base['with_runtime.lte']=F.max;base['with_runtime.gte']=40}
+  if(d&&d.rt)base['with_runtime.gte']=d.rt;
+  if(d&&d.y)base['primary_release_date.lte']=d.y+'-12-31';
+  if(d&&d.gem){base['vote_average.gte']=7;base['vote_count.lte']=3000}
+  const ids=a=>a.map(g=>GID[g]).filter(Boolean);
+  let queries;
+  if(selGs.length&&moodGs.length){
+    // Film needs ALL selected genres plus at least ONE of the mood's genres
+    queries=selGs.some(g=>moodGs.includes(g))?[ids(selGs).join(',')]:moodGs.map(g=>ids([...selGs,g]).join(','));
+  }else if(selGs.length)queries=[ids(selGs).join(',')];
+  else if(moodGs.length)queries=[ids(moodGs).join('|')];
+  else queries=[''];
+  const fetchQ=async q=>{
+    const p={...base,page:customPage||(1+Math.floor(Math.random()*5))};
+    if(q)p.with_genres=q;
+    let res=await tm('/discover/movie',p);
+    if(!(res.results||[]).length&&p.page>1){p.page=1;res=await tm('/discover/movie',p)}
+    return res.results||[];
   };
-
-  if(moodGs.length&&selGs.length){
-    // Query TMDB using mood genres (OR) and let match() strictly enforce all selected genres + mood
-    p.with_genres=moodGs.map(g=>GID[g]).filter(Boolean).join('|');
-  }else if(selGs.length){
-    // Require all selected genres (AND)
-    p.with_genres=selGs.map(g=>GID[g]).filter(Boolean).join(',');
-  }else if(moodGs.length){
-    // Match any of the mood's genres (OR)
-    p.with_genres=moodGs.map(g=>GID[g]).filter(Boolean).join('|');
-  }
-
-  if(F.max)p['with_runtime.lte']=F.max;
-  if(d&&d.rt)p['with_runtime.gte']=d.rt;
-  if(d&&d.y)p['primary_release_date.lte']=d.y+'-12-31';
-  if(d&&d.gem){p['vote_average.gte']=7;p['vote_count.lte']=3000}
-
-  const pagesToCheck=(moodGs.length&&selGs.length)?3:1;
-  let results=[];
-  for(let i=0;i<pagesToCheck;i++){
-    if(i>0)p.page=(p.page%10)+1;
-    const res=await tm('/discover/movie',p);
-    results=results.concat((res.results||[]).map(x=>R(mapFilm(x))));
-    const valid=results.filter(match);
-    if(valid.length>=10)break;
-  }
+  const lists=await Promise.all(queries.map(fetchQ));
   const seen=new Set();
-  results=results.filter(x=>{if(seen.has(x.tmdb))return false;seen.add(x.tmdb);return true});
-  const strict=results.filter(match);
-  return strict.length?strict:results;
+  return lists.flat().map(x=>R(mapFilm(x))).filter(x=>{if(seen.has(x.tmdb))return false;seen.add(x.tmdb);return true}).filter(match);
 }
 
 async function lookup(m){
@@ -2365,6 +1739,24 @@ async function enrich(){
   const miss=S.movies.filter(m=>m.miss).length;
   st(fail||`Done: ${n} films updated${miss?`, ${miss} not found on TMDB`:''}.`);
   toast(fail||'Posters and details are in.');
+}
+
+/* Make sure local films have genres + runtime before a filtered pick */
+async function fillMissing(){
+  if(!S.key)return;
+  const todo=S.movies.filter(m=>!m.watched&&!m.veto&&!m.miss&&!m.chk&&(!(m.genres&&m.genres.length)||!m.runtime)).slice(0,80);
+  if(!todo.length)return;
+  toast('Checking film details for your filters...');
+  const run=async()=>{while(todo.length){
+    const m=todo.shift();
+    try{
+      if(!m.tmdb)await lookup(m);
+      else{const d=await tm('/movie/'+m.tmdb);Object.assign(m,{runtime:d.runtime||m.runtime||0,genres:normGenres((d.genres||[]).map(g=>g.name)),rating:d.vote_average||m.rating||0})}
+      m.chk=1;
+    }catch(e){if(String(e.message)==='401')return}
+  }};
+  await Promise.all([run(),run(),run(),run()]);
+  save();
 }
 
 /* Background enrichment for local watchlist items missing genres/runtime when user clicks Mood/Genre */
@@ -2421,7 +1813,7 @@ function renderAc(items,loading=false){
     const badge=inLib
       ?(inLib.watched?'<span class="ac-badge seen">Watched</span>':'<span class="ac-badge wl">In Watchlist</span>')
       :'<span class="ac-badge tmdb">TMDB</span>';
-    const sub=[m.year,m.rating?`★ ${Number(m.rating).toFixed(1)}`:'',(m.genres||[]).slice(0,2).join(', ')].filter(Boolean).join(' · ');
+    const sub=[m.year,m.rating?`${Number(m.rating).toFixed(1)} rating`:'',(m.genres||[]).slice(0,2).join(', ')].filter(Boolean).join(' · ');
     return `<div class="ac-item" data-ac-i="${i}" role="option" aria-selected="false">
       <div class="ac-thumb">${m.poster?`<img src="${P(m.poster,'w92')}" alt="">`:esc(m.title.slice(0,18))}</div>
       <div class="ac-meta">
@@ -2567,7 +1959,8 @@ document.addEventListener('click',e=>{
 /* Picking & Choose For Me */
 async function go(){
   hit();dramaticImpact(false);S.tk=(S.tk||1)+1;save();fld('#fTake',S.tk);const t0=sleep(420);let c=[];
-  if(S.src!=='tmdb')c=pool();
+  if(F.mood&&F.mood.rt&&F.max&&F.max<=F.mood.rt){toast(`${F.mood.n} films run ${F.mood.rt}+ min, which clashes with that length.`);return}
+  if(S.src!=='tmdb'){if(F.mood||F.genres.size||F.max)await fillMissing();c=pool()}
   if(S.src!=='list'){
     if(!S.key){toast('Add your TMDB key to search the full database.');tools();return}
     try{
@@ -2650,7 +2043,7 @@ async function reveal(m,why,pl){
     if(rk){
       if(i===Math.floor(totalSteps*0.55))rk.textContent='Narrowing The Reel...';
       if(i===totalSteps-3)rk.textContent='And Tonight’s Feature Is...';
-      if(isFinal)rk.textContent='★ Now Presenting ★';
+      if(isFinal)rk.textContent='Now Presenting';
     }
     if(rslot){
       rslot.classList.remove('ticking');
@@ -2675,7 +2068,7 @@ function show(m,why,isPremiere=false){
   ${isPremiere?'<div class="stage-beams"><div class="beam left"></div><div class="beam right"></div></div>':''}
   <article class="card2 ${isPremiere?'premiere-win':''}"><button type="button" class="x" data-a="close" aria-label="Close">${XI}</button>
   <div class="ph">${img(m)}</div><div>
-  ${isPremiere?'<div class="premiere-badge">★ Tonight’s Feature Presentation</div>':''}
+  ${isPremiere?'<div class="premiere-badge">Tonight’s Feature Presentation</div>':''}
   <h2>${esc(m.title)}</h2><p class="meta">${esc(meta)}${m.dirs&&m.dirs.length?`<br>Directed by ${m.dirs.map(d=>esc(d.name)).join(' and ')}`:''}${castLine}</p>${m.tagline?`<p class="tag">${esc(m.tagline)}</p>`:''}
   <p class="gn">${(m.genres||[]).map(g=>`<i role="button" tabindex="0" data-a="gtag" data-g="${esc(g)}">${esc(g)}</i>`).join('')}</p><p class="ovt">${esc(m.overview||'No summary yet. Fetch details from the Add films panel.')}</p>
   ${m.prov&&m.prov.length?`<p class="prov"><b>${m.provT}</b><br>${m.prov.map(p=>`<span>${esc(p)}</span>`).join('')}</p>`:''}${why?`<p class="why">${esc(why)}</p>`:''}
@@ -2926,7 +2319,7 @@ const FP=[24,25,30,48,60];$('#fFps').textContent=S.fps||24;
 document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t)return;const a=t.dataset.a;
   const A={logo:hit,clap:hit,
     roll(){const k=Object.keys(SRC),n=k[(k.indexOf(S.src)+1)%k.length];S.src=n;save();tog('#srcs .chip',b=>b.dataset.s===n);roll();toast('Picking from '+SRC[n])},
-    mood(){F.mood=MOODS[Math.floor(Math.random()*MOODS.length)];tog('#moods .chip',b=>MOODS[Number(b.dataset.m)]===F.mood);scene();toast('Mood set to '+F.mood.n)},
+    mood(){const i=F.mood?MOODS.indexOf(F.mood):-1;F.mood=i+1<MOODS.length?MOODS[i+1]:null;tog('#moods .chip',b=>MOODS[Number(b.dataset.m)]===F.mood);scene();enrichUnmatchedLocal();toast(F.mood?'Mood set to '+F.mood.n:'Mood reset to Anything')},
     fps(){S.fps=FP[(FP.indexOf(S.fps||24)+1)%FP.length];save();fld('#fFps',S.fps);hit()},
     cgen(){
       const cur=F.genres.size===1?[...F.genres][0]:null;
@@ -2940,9 +2333,9 @@ document.addEventListener('click',e=>{const t=e.target.closest('[data-a]');if(!t
         toast('Genre reset to Any');
       }
       tog('#genres .chip',b=>F.genres.has(b.dataset.g));
-      scene();
+      scene();enrichUnmatchedLocal();
     },
-    clen(){const i=TIMES.findIndex(x=>x[0]===F.max),n=TIMES[(i+1)%TIMES.length][0];document.querySelector(`#times .chip[data-t="${n}"]`).click()},
+    clen(){const i=Math.max(0,TIMES.findIndex(x=>x[0]===F.max));F.max=TIMES[(i+1)%TIMES.length][0];tog('#times .chip',b=>+b.dataset.t===F.max);scene();toast('Length set to '+TIMES.find(x=>x[0]===F.max)[1])},
     cwho(){document.querySelector(`#who .chip[data-w="${grp?'solo':'group'}"]`).click()},
     gtag(){
       const g=normGenre(t.dataset.g);
